@@ -1,0 +1,36 @@
+﻿<Window x:Class="DiscountApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Продукти с отстъпка" Height="400" Width="600">
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- В: Списък с продукти -->
+        <ListBox Grid.Column="0"
+                 ItemsSource="{Binding DiscountedProducts}"
+                 SelectedItem="{Binding SelectedP, Mode=TwoWay}"
+                 DisplayMemberPath="Name" />
+
+        <!-- Подробности за избрания продукт -->
+        <StackPanel Grid.Column="1" Margin="10" DataContext="{Binding SelectedP}">
+            <Label Content="Име:" />
+            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+
+            <Label Content="Тип:" />
+            <TextBlock Text="{Binding Type}" />
+
+            <Label Content="Цена:" />
+            <TextBlock Text="{Binding RegularPrice}" />
+
+            <Label Content="Отстъпка (%):" />
+            <TextBlock Text="{Binding Disc.DiscountPerc}" 
+           Foreground="{Binding Disc.DiscountPerc, Converter={StaticResource DiscountBrush}}" />
+
+            <Label Content="Валидност:" />
+            <TextBlock Text="{Binding Disc.ValidUntil}" />
+        </StackPanel>
+    </Grid>
+</Window>
